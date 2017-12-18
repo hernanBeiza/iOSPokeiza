@@ -32,6 +32,7 @@ class DetalleViewController: UIViewController, PokemonDAODelegate {
     }
     
     public func iniciarConPokemon(pokemon:Pokemon){
+        CargadorView.sharedInstance.mostrarEn(parentView: self.view);
         self.title = pokemon.nombre;
         let dao:PokemonDAO = PokemonDAO();
         dao.delegate = self;
@@ -40,6 +41,7 @@ class DetalleViewController: UIViewController, PokemonDAODelegate {
     
     func pokemonDAOCargado(pokemonDAO:PokemonDAO,pokemon:Pokemon) {
         print("DetalleViewController: pokemonDAOCargado();");
+        CargadorView.sharedInstance.ocultar();
         self.tipoLabel.text = pokemon.tipos;
         self.pesoLabel.text = pokemon.peso;
         self.tamanoLabel.text = pokemon.tamano;
@@ -48,6 +50,7 @@ class DetalleViewController: UIViewController, PokemonDAODelegate {
     }
     
     func pokemonDAOError(pokemonDAO:PokemonDAO,error:Error) {
+        CargadorView.sharedInstance.ocultar();
         print(error.localizedDescription);
     }
     

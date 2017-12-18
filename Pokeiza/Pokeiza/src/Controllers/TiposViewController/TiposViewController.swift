@@ -24,12 +24,26 @@ class TiposViewController: UIViewController, UITableViewDataSource,UITableViewDe
         print("viewDidAppear");
         let dao:TipoDAO = TipoDAO();
         dao.delegate = self;
-        dao.cargarTipos();
-    }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        self.tiposTableView.isUserInteractionEnabled = false;
+        dao.cargarTipos();
+        CargadorView.sharedInstance.mostrarEn(parentView: self.view);
+    }
+    
+    // MARK: TiposDAODelegate
+    public func tipoDAOCargados(tipoDAO: TipoDAO,tipos:[Tipo]) {
+        print("TiposViewController: tiposDAOCargados");
+        //print(tipos);
+        self.tiposTableView.isUserInteractionEnabled = true;
+        self.tipos = tipos;
+        self.tiposTableView.reloadData();
+        CargadorView.sharedInstance.ocultar();
+    }
+    
+    public func tipoDAOError(tipoDAO: TipoDAO, error:Error) {
+        print("TiposViewController: tiposDAOError");
+        print(error.localizedDescription);
+        CargadorView.sharedInstance.ocultar();
     }
     
     //MARK: UITableViewDataSource
@@ -58,18 +72,6 @@ class TiposViewController: UIViewController, UITableViewDataSource,UITableViewDe
         self.navigationController?.pushViewController(controller, animated: true);
     }
 
-    // MARK: TiposDAODelegate
-    public func tipoDAOCargados(tipoDAO: TipoDAO,tipos:[Tipo]) {
-        print("TiposViewController: tiposDAOCargados");
-        //print(tipos);
-        self.tipos = tipos;
-        self.tiposTableView.reloadData();
-    }
-    
-    public func tipoDAOError(tipoDAO: TipoDAO, error:Error) {
-        print("TiposViewController: tiposDAOError");
-        print(error.localizedDescription);
-    }
     /*
     // MARK: - Navigation
 
@@ -79,5 +81,10 @@ class TiposViewController: UIViewController, UITableViewDataSource,UITableViewDe
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
 }
