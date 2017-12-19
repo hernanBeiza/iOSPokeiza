@@ -15,7 +15,7 @@ final class CargadorView: UIView {
     
     //public static func sharedInstanceWith(parentView:UIView) -> CargadorView {
     public func mostrarEn(parentView:UIView) {
-        print(String(describing: CargadorView.self), #function);
+        //print(String(describing: CargadorView.self), #function);
         self.configEn(parentView: parentView);
     }
 
@@ -36,12 +36,12 @@ final class CargadorView: UIView {
     }
     
     convenience init(parentView:UIView) {
-        print(String(describing: CargadorView.self), #function);
+        //print(String(describing: CargadorView.self), #function);
         self.init(frame: CGRect.zero)
     }
 
     override init(frame: CGRect) {
-        print(String(describing: CargadorView.self), #function);
+        //print(String(describing: CargadorView.self), #function);
         super.init(frame: frame);
     }
     
@@ -50,12 +50,12 @@ final class CargadorView: UIView {
     }
 
     public func ocultar() {
-        print(String(describing: CargadorView.self), #function);
+        //print(String(describing: CargadorView.self), #function);
         self.removeFromSuperview();
     }
     
     deinit {
-        print(String(describing: CargadorView.self), #function);
+        //print(String(describing: CargadorView.self), #function);
     }
 
 }

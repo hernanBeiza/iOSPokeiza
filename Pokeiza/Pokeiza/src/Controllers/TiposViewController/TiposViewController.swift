@@ -23,7 +23,7 @@ class TiposViewController: UIViewController, UITableViewDataSource,UITableViewDe
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        print("viewDidAppear");
+        //print("viewDidAppear");
         let dao:TipoDAO = TipoDAO();
         dao.delegate = self;
 
@@ -34,7 +34,7 @@ class TiposViewController: UIViewController, UITableViewDataSource,UITableViewDe
     
     // MARK: TiposDAODelegate
     public func tipoDAOCargados(tipoDAO: TipoDAO,tipos:[Tipo]) {
-        print("TiposViewController: tiposDAOCargados");
+        //print("TiposViewController: tiposDAOCargados");
         //print(tipos);
         self.tiposTableView.isUserInteractionEnabled = true;
         self.tipos = tipos;
@@ -43,8 +43,8 @@ class TiposViewController: UIViewController, UITableViewDataSource,UITableViewDe
     }
     
     public func tipoDAOError(tipoDAO: TipoDAO, error:Error) {
-        print("TiposViewController: tiposDAOError");
-        print(error.localizedDescription);
+        //print("TiposViewController: tiposDAOError");
+        //print(error.localizedDescription);
         CargadorView.sharedInstance.ocultar();
     }
     
@@ -72,7 +72,8 @@ class TiposViewController: UIViewController, UITableViewDataSource,UITableViewDe
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("diSelectRowAt",indexPath.row);
+        //print("diSelectRowAt",indexPath.row);
+        SonidoPlayer.sharedInstance.reproducirSeleccionado();
         let story:UIStoryboard = self.storyboard!;
         let controller:PokemonesViewController = story.instantiateViewController(withIdentifier: "PokemonesViewController") as! PokemonesViewController;
         controller.iniciarConTipo(tipo: self.tipos[indexPath.row]);

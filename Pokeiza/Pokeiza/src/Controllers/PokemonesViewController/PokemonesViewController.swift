@@ -22,13 +22,13 @@ class PokemonesViewController: UIViewController, UITableViewDelegate,UITableView
     }
     
     public func iniciarConTipo(tipo: Tipo){
-        print("iniciarConTipo",tipo.nombre);
+        //print("iniciarConTipo",tipo.nombre);
         self.title = tipo.nombre;
         self.cargarPokemones(tipo: tipo);
     }
     
     private func cargarPokemones(tipo:Tipo){
-        print(String(describing: PokemonesViewController.self),#function);
+        //print(String(describing: PokemonesViewController.self),#function);
         let dao:LocalDBDAO = LocalDBDAO();
         pokemones = dao.obtenerPokemonConTipo(idTipo: Int(tipo.idTipo));
         /*
@@ -41,7 +41,7 @@ class PokemonesViewController: UIViewController, UITableViewDelegate,UITableView
     
     //MARK: UITableViewDataSource
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(String(describing: PokemonesViewController.self), #function, pokemones.count);
+        //print(String(describing: PokemonesViewController.self), #function, pokemones.count);
         return pokemones.count;
     }
     
@@ -58,7 +58,9 @@ class PokemonesViewController: UIViewController, UITableViewDelegate,UITableView
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("diSelectRowAt",indexPath.row);
+        //print("diSelectRowAt",indexPath.row);
+        SonidoPlayer.sharedInstance.reproducirSeleccionado();
+
         let story:UIStoryboard = self.storyboard! as UIStoryboard;
         let controller:DetalleViewController = story.instantiateViewController(withIdentifier: "DetalleViewController") as! DetalleViewController;
         let model:Pokemon = self.pokemones[indexPath.row];

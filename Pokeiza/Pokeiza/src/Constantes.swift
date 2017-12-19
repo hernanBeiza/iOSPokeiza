@@ -13,4 +13,7 @@ struct Constantes {
     static let URLTipos = "http://pokeapi.co/api/v2/type/";
     static let URLPokemon = "http://pokeapi.co/api/v2/pokemon/";
     static let AltoCelda:CGFloat = 55;
+    static let SonidoSELECTED = "itemselected";
+    static let SonidoOK = "cargafotook";
+    static let SonidoERROR = "cargafotoerror";
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetalleViewController: UIViewController, PokemonDAODelegate {
+class DetalleViewController: UIViewController, PokemonDAODelegate, ImagenDAODelegate {
 
     @IBOutlet weak var fotoImageView:UIImageView!;
     @IBOutlet weak var tipoLabel:UILabel!;
@@ -40,21 +40,44 @@ class DetalleViewController: UIViewController, PokemonDAODelegate {
     }
     
     func pokemonDAOCargado(pokemonDAO:PokemonDAO,pokemon:Pokemon) {
-        print("DetalleViewController: pokemonDAOCargado();");
         CargadorView.sharedInstance.ocultar();
         self.tipoLabel.text = pokemon.tipos;
-        self.pesoLabel.text = pokemon.peso;
-        self.tamanoLabel.text = pokemon.tamano;
+        if let peso:String = pokemon.peso {
+            pesoLabel.text = peso;
+        }
+        if let tamano:String = pokemon.tamano {
+            tamanoLabel.text = tamano;
+        }
         self.habilidadesTextView.text = pokemon.habilidades;
         self.caracteristicasTextView.text = pokemon.caracteristicas;
         if(pokemon.fotografia != nil){
+            let dao = ImagenDAO();
+            dao.delegate = self;
+            dao.cargarCon(url: pokemon.fotografia!);
+            //Extensión para UIImageView
+            /*
             self.fotoImageView.downloadImage(url: pokemon.fotografia!);
+             */
         }
     }
     
     func pokemonDAOError(pokemonDAO:PokemonDAO,error:Error) {
         CargadorView.sharedInstance.ocultar();
-        print(error.localizedDescription);
+        //print(error.localizedDescription);
+        SonidoPlayer.sharedInstance.reproducirCargarError();
+    }
+    
+    //MARK: - ImagenDAODelegate
+    func imagenDAOCargado(imagenDAO: ImagenDAO, imagenData: Data) {
+        CargadorView.sharedInstance.ocultar();
+        SonidoPlayer.sharedInstance.reproducirCargaOK();
+        self.fotoImageView.image = UIImage(data:imagenData)
+    }
+    
+    func imagenDAOError(imagenDAO: ImagenDAO, error: Error) {
+        //print(error.localizedDescription);
+        CargadorView.sharedInstance.ocultar();
+        SonidoPlayer.sharedInstance.reproducirCargarError();
     }
     
     override func didReceiveMemoryWarning() {

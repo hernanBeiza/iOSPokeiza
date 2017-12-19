@@ -19,41 +19,41 @@ class PokemonDAO: NSObject, URLSessionDelegate {
     weak var delegate: PokemonDAODelegate?
     
     override init() {
-        print("PokemonDAO: init();");
+        print("PokemonDAO:",#function);
     }
     
     //MARK: Obtener los tipos de pokemones desde la API.
     public func cargarPokemon(pokemon:Pokemon){
-        print("PokemonDAO: cargarPokemon();");
+        print("PokemonDAO:",#function);
         let dao:LocalDBDAO = LocalDBDAO();
-        let model = dao.obtenerDetallePokemon(idPokemon: Int(pokemon.idPokemon));
-        if(model == nil){
-            self.cargarDesdeInternet(pokemon:pokemon);
-        } else {
+        if let model = dao.obtenerDetallePokemon(idPokemon: Int(pokemon.idPokemon)){
             DispatchQueue.main.async() {
-                self.delegate?.pokemonDAOCargado(pokemonDAO: self, pokemon: model!);
+                self.delegate?.pokemonDAOCargado(pokemonDAO: self, pokemon: model);
             }
+        } else {
+            self.cargarDesdeInternet(pokemon:pokemon);
         }
     }
     
     private func cargarDesdeInternet(pokemon:Pokemon){
-        print("PokemonDAO: cargarDesdeInternet");
+        print("PokemonDAO:",#function);
         let url = URL(string: Constantes.URLPokemon+String(pokemon.idPokemon));
         print(url!);
         let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
             if let data = data {
                 
-                if let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? NSDictionary {
+                if let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as! NSDictionary {
                     //print(json);
                     print("tipo \(pokemon.idTipo)");
+                    let peso:Int = json.value(forKey: "weight") as! Int;
+                    let pesoString:String = String(describing:peso);
+                    print("peso \(pesoString)");
                     
-                    let peso = json?.value(forKey: "weight");
-                    print("peso \(peso)");
+                    let tamano:Int = json.value(forKey: "height") as! Int;
+                    let tamanoString:String = String(describing:tamano);
+                    print("tamaño \(tamanoString)");
 
-                    let tamano = json?.value(forKey: "height");
-                    print("tamaño \(tamano)");
-
-                    let caracteristicasJSON = json!.value(forKey: "stats") as! NSArray;
+                    let caracteristicasJSON = json.value(forKey: "stats") as! NSArray;
                     //print(caracteristicasJSON);
                     var caracteristicaString:String = "";
                     var i = 0;
@@ -62,14 +62,14 @@ class PokemonDAO: NSObject, URLSessionDelegate {
                         let stat:NSDictionary = caracteristicaDIC.value(forKey: "stat") as! NSDictionary;
                         caracteristicaString.append(String(stat.value(forKey: "name") as! String).capitalized);
                         if(i<caracteristicasJSON.count-1){
-                            caracteristicaString.append("-");
+                            caracteristicaString.append("\n");
                         }
                         i+=1;
                     }
                     
                     print("características \(caracteristicaString)");
                     
-                    let habilidadesJSON = json!.value(forKey:"abilities") as! NSArray;
+                    let habilidadesJSON = json.value(forKey:"abilities") as! NSArray;
                     var habilidadesString:String = "";
                     i = 0;
                     for habilidad in habilidadesJSON {
@@ -77,14 +77,14 @@ class PokemonDAO: NSObject, URLSessionDelegate {
                         let habilidad:NSDictionary = habilidadDIC.value(forKey: "ability") as! NSDictionary;
                         habilidadesString.append(String(habilidad.value(forKey: "name") as! String).capitalized);
                         if(i<habilidadesJSON.count-1){
-                            habilidadesString.append("-");
+                            habilidadesString.append("\n");
                         }
                         i+=1;
                     }
                     
                     print("habilidades \(habilidadesString)");
 
-                    let tiposJSON = json!.value(forKey:"types") as! NSArray;
+                    let tiposJSON = json.value(forKey:"types") as! NSArray;
                     var tiposString:String = "";
                     i = 0;
                     for tipo in tiposJSON {
@@ -92,22 +92,25 @@ class PokemonDAO: NSObject, URLSessionDelegate {
                         let tipo:NSDictionary = tipoDIC.value(forKey: "type") as! NSDictionary;
                         tiposString.append(String(tipo.value(forKey: "name") as! String).capitalized);
                         if(i<tiposJSON.count-1){
-                            tiposString.append("-");
+                            tiposString.append("/");
                         }
                         i+=1;
                     }
                     
                     print("tipos \(tiposString)");
                     
-                    let foto:NSDictionary = json!.value(forKey:"sprites") as! NSDictionary;
-                    let fotoString:String = foto.value(forKey: "front_default") as! String;
-                    print(fotoString);
+                    let foto:NSDictionary = json.value(forKey:"sprites") as! NSDictionary;
+                    var fotoString: String? = nil;
+                    if let foto = foto.value(forKey: "front_default") as? String {
+                        fotoString = foto;
+                    }
                     let local:LocalDBDAO = LocalDBDAO();
-                    if(local.editarPokemon(idPokemon: Int(pokemon.idPokemon), idTipo: Int(pokemon.idTipo), nombre: pokemon.nombre, tamano: "\(tamano)", peso: "\(peso)", caracteristicas: caracteristicaString, habilidades: habilidadesString, tipos: tiposString, fotografia: fotoString)){
-                        print("Pokemon \(pokemon.nombre) Actualizado");
-                        let pokemonModel:Pokemon? = local.obtenerPokemon(idPokemon: Int(pokemon.idPokemon));
-                        DispatchQueue.main.async() {
-                            self.delegate?.pokemonDAOCargado(pokemonDAO: self, pokemon: pokemonModel!);
+                    if(local.editarPokemon(idPokemon: Int(pokemon.idPokemon), idTipo: Int(pokemon.idTipo), nombre: pokemon.nombre, tamano: tamanoString, peso: pesoString, caracteristicas: caracteristicaString, habilidades: habilidadesString, tipos: tiposString, fotografia: fotoString)){
+                        //print("Pokemon \(pokemon.nombre) Actualizado");
+                        if let pokemonModel:Pokemon = local.obtenerPokemon(idPokemon: Int(pokemon.idPokemon)){
+                            DispatchQueue.main.async() {
+                                self.delegate?.pokemonDAOCargado(pokemonDAO: self, pokemon: pokemonModel);
+                            }
                         }
                     } else {
                         print("Pokemon \(pokemon.nombre) No Actualizado.");

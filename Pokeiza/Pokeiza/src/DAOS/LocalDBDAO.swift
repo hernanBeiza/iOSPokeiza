@@ -147,19 +147,18 @@ class LocalDBDAO: NSObject {
         }
     }
 
-    public func editarPokemon(idPokemon:Int,idTipo:Int,nombre:String,tamano:String,peso:String,caracteristicas:String,habilidades:String,tipos:String,fotografia:String) -> Bool {
+    public func editarPokemon(idPokemon:Int,idTipo:Int,nombre:String,tamano:String,peso:String,caracteristicas:String,habilidades:String,tipos:String,fotografia:String?) -> Bool {
         print("LoocalDBDAO: editarPokemon(); \(nombre)");
-        var model:Pokemon? = self.obtenerPokemon(idPokemon: idPokemon);
-        if model != nil {
-            model?.idPokemon = Int16(idPokemon);
-            model?.idTipo = Int16(idTipo);
-            model?.nombre = nombre;
-            model?.tamano = tamano;
-            model?.peso = peso;
-            model?.caracteristicas = caracteristicas;
-            model?.habilidades = habilidades;
-            model?.tipos = tipos;
-            model?.fotografia = fotografia;
+        if var model:Pokemon = self.obtenerPokemon(idPokemon: idPokemon){
+            model.idPokemon = Int16(idPokemon);
+            model.idTipo = Int16(idTipo);
+            model.nombre = nombre;
+            model.tamano = tamano;
+            model.peso = peso;
+            model.caracteristicas = caracteristicas;
+            model.habilidades = habilidades;
+            model.tipos = tipos;
+            model.fotografia = fotografia;
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let managedContext = appDelegate.persistentContainer.viewContext
             do {
@@ -207,9 +206,13 @@ class LocalDBDAO: NSObject {
         do {
             let pokemones = try managedContext.fetch(fetchRequest) as NSArray;
             if(pokemones.count>0){
-                let pokemon:Pokemon = pokemones.firstObject as! Pokemon
-                print ("LocalDBDAO: Se encontró a \(pokemon.nombre)");
-                return pokemon;
+                if let pokemon:Pokemon = pokemones.firstObject as? Pokemon {
+                    print ("LocalDBDAO: Se encontró a \(pokemon.nombre)");
+                    return pokemon;
+                } else {
+                    print ("LocalDBDAO: No se encontraron pokemones con idPokemon: \(idPokemon)");
+                    return nil;
+                }
             } else {
                 print ("LocalDBDAO: No se encontraron pokemones con idPokemon: \(idPokemon)");
                 return nil;
@@ -236,9 +239,13 @@ class LocalDBDAO: NSObject {
         do {
             let pokemones = try managedContext.fetch(fetchRequest) as NSArray;
             if(pokemones.count>0){
-                let pokemon:Pokemon = pokemones.firstObject as! Pokemon
-                print ("LocalDBDAO: Se encontró detalle de Pokemon \(pokemon.nombre)");
-                return pokemon;
+                if let pokemon:Pokemon = pokemones.firstObject as? Pokemon {
+                    print ("LocalDBDAO: Se encontró detalle de Pokemon \(pokemon.nombre)");
+                    return pokemon;
+                } else {
+                    print ("LocalDBDAO: No se encontró detalle de Pokemon con idPokemon: \(idPokemon)");
+                    return nil;
+                }
             } else {
                 print ("LocalDBDAO: No se encontró detalle de Pokemon con idPokemon: \(idPokemon)");
                 return nil;
