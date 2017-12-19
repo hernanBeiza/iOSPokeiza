@@ -16,11 +16,11 @@ class DetalleViewController: UIViewController, PokemonDAODelegate {
     @IBOutlet weak var tamanoLabel:UILabel!;
     @IBOutlet weak var habilidadesTextView:UITextView!;
     @IBOutlet weak var caracteristicasTextView:UITextView!;
-
-    //TODO: Crear Constraints en el Storyboard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.navigationController?.navigationBar.tintColor = UIColor.white;
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -47,6 +47,9 @@ class DetalleViewController: UIViewController, PokemonDAODelegate {
         self.tamanoLabel.text = pokemon.tamano;
         self.habilidadesTextView.text = pokemon.habilidades;
         self.caracteristicasTextView.text = pokemon.caracteristicas;
+        if(pokemon.fotografia != nil){
+            self.fotoImageView.downloadImage(url: pokemon.fotografia!);
+        }
     }
     
     func pokemonDAOError(pokemonDAO:PokemonDAO,error:Error) {

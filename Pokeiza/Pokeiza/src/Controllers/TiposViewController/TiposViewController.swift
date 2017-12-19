@@ -18,6 +18,8 @@ class TiposViewController: UIViewController, UITableViewDataSource,UITableViewDe
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.title = "Tipos de Pokemon";
+        self.navigationController?.navigationBar.tintColor = UIColor.white;
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -51,10 +53,15 @@ class TiposViewController: UIViewController, UITableViewDataSource,UITableViewDe
         return 1;
     }
     
+    
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.tipos.count;
     }
     //MARK: UITableViewDelegate
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return Constantes.AltoCelda;
+    }
+
     public func tableView (_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "MiCelda", for: indexPath)

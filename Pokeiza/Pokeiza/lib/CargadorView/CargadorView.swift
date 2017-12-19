@@ -20,16 +20,17 @@ final class CargadorView: UIView {
     }
 
     private func configEn(parentView:UIView){
-        let posX = parentView.frame.width/2-25;
-        let posY = parentView.frame.height/2-25;
+        let tamano:CGFloat = 80;
+        let posX = parentView.frame.width/2-tamano/2;
+        let posY = parentView.frame.height/2-tamano/2;
         self.layer.cornerRadius = 5;
-        self.frame = CGRect.init(x: posX, y: posY, width: 44, height: 44);
-        self.backgroundColor = UIColor.init(colorLiteralRed: 0.0, green: 0.0, blue: 0.0, alpha: 0.6);
+        self.frame = CGRect.init(x: posX, y: posY, width: tamano, height: tamano);
+        self.backgroundColor = UIColor.init(colorLiteralRed: 0.0, green: 0.0, blue: 0.0, alpha: 0.7);
         //UIActivityIndicadorView
         let spinner = UIActivityIndicatorView();
         spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge;
+        spinner.center = CGPoint(x: self.frame.size.width / 2, y: self.frame.size.height / 2);
         self.addSubview(spinner);
-        spinner.frame = CGRect.init(x: 0, y: 0, width: 44, height: 44);
         spinner.startAnimating();
         parentView.addSubview(self);
     }

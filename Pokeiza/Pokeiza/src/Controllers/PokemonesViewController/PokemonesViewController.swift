@@ -18,6 +18,7 @@ class PokemonesViewController: UIViewController, UITableViewDelegate,UITableView
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.pokemonesTableView.reloadData()
+        self.navigationController?.navigationBar.tintColor = UIColor.white;
     }
     
     public func iniciarConTipo(tipo: Tipo){
@@ -45,6 +46,10 @@ class PokemonesViewController: UIViewController, UITableViewDelegate,UITableView
     }
     
     //MARK: UITableViewDelegate
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return Constantes.AltoCelda;
+    }
+
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MiCelda", for: indexPath)
         let model:Pokemon = pokemones[indexPath.row];
