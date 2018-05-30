@@ -32,7 +32,7 @@ class DetalleViewController: UIViewController, PokemonDAODelegate, ImagenDAODele
     }
     
     public func iniciarConPokemon(pokemon:Pokemon){
-        CargadorView.sharedInstance.mostrarEn(parentView: self.view);
+        CargadorView.sharedInstance.mostrarEn(parentView: self.view, mensaje: "Cargando...");
         self.title = pokemon.nombre;
         let dao:PokemonDAO = PokemonDAO();
         dao.delegate = self;

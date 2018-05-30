@@ -13,9 +13,9 @@
 		1429E7DD1FE4603B0074309F /* DetalleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1429E7DC1FE4603B0074309F /* DetalleViewController.swift */; };
 		1429E7DF1FE464BE0074309F /* TipoDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1429E7DE1FE464BE0074309F /* TipoDAO.swift */; };
 		1429E7E11FE4653F0074309F /* Constantes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1429E7E01FE4653F0074309F /* Constantes.swift */; };
-		14852C7E1FE8CDD000446FE1 /* cargafotoerror.wav in Resources */ = {isa = PBXBuildFile; fileRef = 14852C7B1FE8CDD000446FE1 /* cargafotoerror.wav */; };
-		14852C7F1FE8CDD000446FE1 /* cargafotook.wav in Resources */ = {isa = PBXBuildFile; fileRef = 14852C7C1FE8CDD000446FE1 /* cargafotook.wav */; };
-		14852C801FE8CDD000446FE1 /* itemselected.wav in Resources */ = {isa = PBXBuildFile; fileRef = 14852C7D1FE8CDD000446FE1 /* itemselected.wav */; };
+		144F163720BF6AF400A9E331 /* cargafotoerror.wav in Resources */ = {isa = PBXBuildFile; fileRef = 144F163420BF6AF400A9E331 /* cargafotoerror.wav */; };
+		144F163820BF6AF400A9E331 /* cargafotook.wav in Resources */ = {isa = PBXBuildFile; fileRef = 144F163520BF6AF400A9E331 /* cargafotook.wav */; };
+		144F163920BF6AF400A9E331 /* itemselected.wav in Resources */ = {isa = PBXBuildFile; fileRef = 144F163620BF6AF400A9E331 /* itemselected.wav */; };
 		14852C831FE8CE2100446FE1 /* SonidoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14852C821FE8CE2100446FE1 /* SonidoPlayer.swift */; };
 		14ADA94A1FE8BC1F00CD305A /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ADA9491FE8BC1F00CD305A /* UIImageView.swift */; };
 		14C1040D1FE95C0700DCD04B /* ImagenDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C1040C1FE95C0700DCD04B /* ImagenDAO.swift */; };
@@ -58,9 +58,9 @@
 		1429E7DC1FE4603B0074309F /* DetalleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetalleViewController.swift; sourceTree = "<group>"; };
 		1429E7DE1FE464BE0074309F /* TipoDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipoDAO.swift; sourceTree = "<group>"; };
 		1429E7E01FE4653F0074309F /* Constantes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constantes.swift; sourceTree = "<group>"; };
-		14852C7B1FE8CDD000446FE1 /* cargafotoerror.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = cargafotoerror.wav; path = ../../../../../../Desktop/cargafotoerror.wav; sourceTree = "<group>"; };
-		14852C7C1FE8CDD000446FE1 /* cargafotook.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = cargafotook.wav; path = ../../../../../../Desktop/cargafotook.wav; sourceTree = "<group>"; };
-		14852C7D1FE8CDD000446FE1 /* itemselected.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = itemselected.wav; path = ../../../../../../Desktop/itemselected.wav; sourceTree = "<group>"; };
+		144F163420BF6AF400A9E331 /* cargafotoerror.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = cargafotoerror.wav; sourceTree = "<group>"; };
+		144F163520BF6AF400A9E331 /* cargafotook.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = cargafotook.wav; sourceTree = "<group>"; };
+		144F163620BF6AF400A9E331 /* itemselected.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = itemselected.wav; sourceTree = "<group>"; };
 		14852C821FE8CE2100446FE1 /* SonidoPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SonidoPlayer.swift; sourceTree = "<group>"; };
 		14ADA9491FE8BC1F00CD305A /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		14C1040C1FE95C0700DCD04B /* ImagenDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagenDAO.swift; sourceTree = "<group>"; };
@@ -151,9 +151,9 @@
 		14852C7A1FE8CDC000446FE1 /* sonidos */ = {
 			isa = PBXGroup;
 			children = (
-				14852C7B1FE8CDD000446FE1 /* cargafotoerror.wav */,
-				14852C7C1FE8CDD000446FE1 /* cargafotook.wav */,
-				14852C7D1FE8CDD000446FE1 /* itemselected.wav */,
+				144F163420BF6AF400A9E331 /* cargafotoerror.wav */,
+				144F163520BF6AF400A9E331 /* cargafotook.wav */,
+				144F163620BF6AF400A9E331 /* itemselected.wav */,
 			);
 			path = sonidos;
 			sourceTree = "<group>";
@@ -386,9 +386,9 @@
 			files = (
 				14EF64C61FE453FD00A7892C /* LaunchScreen.storyboard in Resources */,
 				14EF64C31FE453FD00A7892C /* Assets.xcassets in Resources */,
-				14852C7F1FE8CDD000446FE1 /* cargafotook.wav in Resources */,
-				14852C7E1FE8CDD000446FE1 /* cargafotoerror.wav in Resources */,
-				14852C801FE8CDD000446FE1 /* itemselected.wav in Resources */,
+				144F163820BF6AF400A9E331 /* cargafotook.wav in Resources */,
+				144F163720BF6AF400A9E331 /* cargafotoerror.wav in Resources */,
+				144F163920BF6AF400A9E331 /* itemselected.wav in Resources */,
 				14EF64BE1FE453FD00A7892C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

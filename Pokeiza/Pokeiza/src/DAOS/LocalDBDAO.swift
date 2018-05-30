@@ -203,7 +203,7 @@ class LocalDBDAO: NSObject {
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Pokemon")
         fetchRequest.predicate = NSPredicate(format: "idPokemon == %@", String(idPokemon));
-        do {
+        do {x
             let pokemones = try managedContext.fetch(fetchRequest) as NSArray;
             if(pokemones.count>0){
                 if let pokemon:Pokemon = pokemones.firstObject as? Pokemon {

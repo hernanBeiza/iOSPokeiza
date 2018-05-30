@@ -12,6 +12,7 @@ import CoreData
 //MARK: Protocoles TiposDAO
 protocol TipoDAODelegate: class {
     func tipoDAOCargados(tipoDAO:TipoDAO,tipos:[Tipo]);
+    func tipoDAOCargado(tipoDAO:TipoDAO,mensaje:String);
     func tipoDAOError(tipoDAO:TipoDAO,error:Error);
 }
 
@@ -64,6 +65,9 @@ class TipoDAO: NSObject, URLSessionDelegate {
                     let local:LocalDBDAO = LocalDBDAO();
                     if(local.guardarTipo(idTipo:idTipo,nombre:nombre,url:url)){
                         //print("Tipo \(nombre) Guardado");
+                        let mensaje = "Tipo \(nombre) cargado correctamente. \(self.idtipo) de 18";
+                        self.delegate?.tipoDAOCargado(tipoDAO: self, mensaje: mensaje)
+                        
                         let pokemones = json?.value(forKey: "pokemon") as! NSArray;
                         for item in pokemones {
                             let item2:NSDictionary = item as! NSDictionary;

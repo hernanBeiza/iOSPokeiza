@@ -23,13 +23,15 @@ class TiposViewController: UIViewController, UITableViewDataSource,UITableViewDe
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        //print("viewDidAppear");
-        let dao:TipoDAO = TipoDAO();
-        dao.delegate = self;
+        print("TiposViewController",#function);
 
         self.tiposTableView.isUserInteractionEnabled = false;
+
+        let dao:TipoDAO = TipoDAO();
+        dao.delegate = self;
         dao.cargarTipos();
-        CargadorView.sharedInstance.mostrarEn(parentView: self.view);
+        
+        CargadorView.sharedInstance.mostrarEn(parentView: self.view, mensaje:"Cargando...");
     }
     
     // MARK: TiposDAODelegate
@@ -40,6 +42,10 @@ class TiposViewController: UIViewController, UITableViewDataSource,UITableViewDe
         self.tipos = tipos;
         self.tiposTableView.reloadData();
         CargadorView.sharedInstance.ocultar();
+    }
+    
+    public func tipoDAOCargado(tipoDAO: TipoDAO, mensaje: String) {
+        print("TiposViewController",#function,mensaje);
     }
     
     public func tipoDAOError(tipoDAO: TipoDAO, error:Error) {
